@@ -76,7 +76,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         ))}
         <script
           // Gate entrance animations on JS before first paint.
-          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+          // Also skip the loader on repeat visits in this browser session (set before paint, so it never flashes).
+          dangerouslySetInnerHTML={{
+            __html:
+              "var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('kas-intro-seen'))d.classList.add('loader-skip')}catch(e){}",
+          }}
         />
         <script
           type="application/ld+json"

@@ -8,10 +8,15 @@ import { Check } from "@/components/icons";
 const STEPS = ["Typefaces", "Assets", "Statement"];
 const MIN_MS = 1100;
 const MAX_MS = 3200;
+/** If fonts and the page are ready this fast, the counter is skipped and the cover just fades. */
+const FAST_MS = 300;
+/** Once per browser session: reloads and later visits in the session skip the loader (see layout <head>). */
+const SEEN_KEY = "kas-intro-seen";
 
 /**
- * Full-reload loader: a ledger counter runs to 100 while fonts and the page load,
- * then a curtain wipes up. Hidden without JS (see .loader in globals.css).
+ * Loader, only when needed: on the first visit of a browser session, and only if loading
+ * takes longer than FAST_MS. Then a ledger counter runs to 100 while fonts and the page load,
+ * and a curtain wipes up. Hidden without JS and on repeat visits (see .loader in globals.css).
  */
 export function Loader() {
   const root = useRef<HTMLDivElement>(null);
@@ -25,10 +30,22 @@ export function Loader() {
       const bar = q("[data-bar]")[0];
       const ticks = q<HTMLElement>("[data-tick]");
       const html = document.documentElement;
+
+      // Repeat visit in this session: never shown (hidden by CSS before paint).
+      if (html.classList.contains("loader-skip")) {
+        markLoaded();
+        setGone(true);
+        return;
+      }
       html.style.overflow = "hidden";
 
       const finish = () => {
         html.style.overflow = "";
+        try {
+          sessionStorage.setItem(SEEN_KEY, "1");
+        } catch {
+          // Storage blocked: the loader may show again next time, which is harmless.
+        }
         setGone(true);
       };
 
@@ -53,12 +70,26 @@ export function Loader() {
         new Promise<void>((done) => gsap.to(progress, { v, duration, ease: "power2.out", onUpdate: render, onComplete: done }));
 
       const pageLoaded = new Promise<void>((r) => (document.readyState === "complete" ? r() : window.addEventListener("load", () => r(), { once: true })));
-      const work = Promise.all([document.fonts.ready.then(() => to(Math.max(progress.v, 36), 0.5)), pageLoaded]);
-      const atLeast = new Promise((r) => setTimeout(r, MIN_MS));
-      const atMost = new Promise((r) => setTimeout(r, MAX_MS));
+      const ready = Promise.all([document.fonts.ready, pageLoaded]);
 
       let cancelled = false;
       (async () => {
+        // Fast load (cached or quick network) and the visitor hasn't been waiting: no counter, the cover just fades.
+        const waitedAlready = performance.now() > 900;
+        const fast = await Promise.race([ready.then(() => true), new Promise<boolean>((r) => setTimeout(() => r(false), FAST_MS))]);
+        if (cancelled) return;
+        if (fast && !waitedAlready) {
+          markLoaded();
+          gsap.to(el, { autoAlpha: 0, duration: 0.35, ease: "power2.out", onComplete: finish });
+          return;
+        }
+
+        // Show the counter (until now the cover showed only the moving idle bar).
+        el.classList.add("is-counting");
+        const work = Promise.all([document.fonts.ready.then(() => to(Math.max(progress.v, 36), 0.5)), pageLoaded]);
+        // Already loaded (the script itself was the slow part): a quick count is enough.
+        const atLeast = new Promise((r) => setTimeout(r, fast ? 300 : MIN_MS));
+        const atMost = new Promise((r) => setTimeout(r, MAX_MS));
         await to(30, 0.6);
         await Promise.race([Promise.all([work, atLeast]), atMost]);
         if (cancelled) return;
@@ -102,13 +133,13 @@ export function Loader() {
 
       <div aria-hidden="true">
         <div className="flex items-end justify-between gap-6">
-          <div className="overflow-hidden">
+          <div className="loader-count overflow-hidden">
             <p data-loader-rise className="stmt text-[clamp(5rem,22vw,15rem)] leading-[0.8] font-semibold tabular-nums">
               <span data-count>000</span>
               <span className="text-sun">%</span>
             </p>
           </div>
-          <ul className="fig hidden overflow-hidden pb-3 text-[11px] sm:block">
+          <ul className="loader-count fig hidden overflow-hidden pb-3 text-[11px] sm:block">
             {STEPS.map((s, i) => (
               <li key={s} data-loader-rise className="flex items-center gap-3 py-1 text-ink-3">
                 <span className="w-5 text-ink-3">{String(i + 1).padStart(2, "0")}</span>
@@ -123,7 +154,9 @@ export function Loader() {
             ))}
           </ul>
         </div>
-        <div className="mt-6 h-[3px] w-full overflow-hidden bg-rule">
+        <div className="relative mt-6 h-[3px] w-full overflow-hidden bg-rule">
+          {/* Before the script runs: an indeterminate bar, so a slow first load never looks frozen. */}
+          <div className="loader-idle absolute inset-y-0 w-1/3 bg-[linear-gradient(90deg,transparent,var(--color-sun),transparent)]" />
           <div
             data-bar
             className="h-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-sun),var(--color-mint),var(--color-sky))]"

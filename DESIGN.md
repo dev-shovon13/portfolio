@@ -68,11 +68,11 @@ Selection, focus rings and scrollbars are themed from these.
   - Choices persist in localStorage.
 
 ## Motion (GSAP)
-- **Loader** (`src/components/Loader.tsx`, full reloads only):
-  - A ledger counter 000 → 100% runs while fonts and the page load, with ticks for Typefaces, Assets and Statement. It takes at least 1.1s and at most 3.2s.
-  - The numbers rise out, then a curtain wipes up with `clip-path`.
-  - `loaded` (`src/lib/loader.ts`) resolves as the curtain lifts. The hero intro and Lenis wait for it.
-  - Hidden without JS; a short fade under reduced motion.
+- **Loader** (`src/components/Loader.tsx`), only when needed:
+  - Shown once per browser session. A `<head>` script adds `loader-skip` when the `kas-intro-seen` flag is in sessionStorage, so it never flashes on reloads.
+  - Before the script runs, the cover shows an indeterminate bar, never a frozen counter.
+  - If fonts and the page are ready within 300ms (and the visitor hasn't already waited), the cover just fades. Otherwise the 000 → 100% counter runs, then the curtain wipes up.
+  - `loaded` gates the hero intro and Lenis.
 - Grammar: rules draw left to right (`scaleX`), lines slide up and lock, statuses flip pending to matched, and the stamp lands with `back.out`.
 - The hero plays once per page load. `Choreography` runs every `[data-ledger]` block once on scroll. Network arcs scrub with `DrawSVG`. The NeuString demo re-sorts with `Flip`.
 - `Choreography` also handles the scroll motion:
@@ -101,3 +101,4 @@ Selection, focus rings and scrollbars are themed from these.
 - **Cache Components is off** (`next.config.ts`). Its hidden-route preservation kept old pages in the DOM and re-ran GSAP effects on return, which broke ScrollTrigger. The site is fully static and doesn't need it.
 - **Never use `once: true` on ScrollTriggers.** Use `toggleActions: "play none none none"`. A `once` trigger kills itself when it fires during creation (for example, landing on `/#cv` already past it), which corrupts ScrollTrigger's list mid-refresh ("Cannot read properties of undefined (reading 'end')").
 - `Choreography` only animates rendered elements and sets up one frame after mount.
+- **Link preview** is a static `src/app/opengraph-image.png` (1200×630): a frozen capture of the hero (pill on "TypeScript"), chosen by Kawser. Regenerate it after hero changes.
