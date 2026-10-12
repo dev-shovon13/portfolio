@@ -23,6 +23,17 @@ export const profile = {
   languages: "Bangla (native) · English (professional)",
 } as const;
 
+/** Hero copy. Also drawn into the generated share image (app/opengraph-image.tsx), so edit it here. */
+export const hero = {
+  years: 5,
+  yearsLabel: "Years of experience",
+  yearsNote: "Shipping software since Dec 2021",
+  /** Words cycled in the highlighted pill; the share image shows the first. */
+  stack: ["React", "Next.js", "TypeScript", "Node.js", "Express", "MongoDB"],
+  /** Follows "<role> building <stack word>". */
+  pitch: "systems for telecom settlement, government and enterprise.",
+};
+
 export type Status = "matched" | "pending";
 
 /** The eight items reconciled in the hero board. */

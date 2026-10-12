@@ -5,12 +5,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { gsap, SplitText, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { loaded } from "@/lib/loader";
-import { profile, workPlaces } from "@/content/profile";
+import { hero, profile, workPlaces } from "@/content/profile";
 import { ArrowRight, Download } from "@/components/icons";
 import { ShinyText } from "@/components/reactbits/ShinyText";
 import { RotatingText } from "@/components/reactbits/RotatingText";
-
-const STACK = ["React", "Next.js", "TypeScript", "Node.js", "Express", "MongoDB"];
 
 const Globe = dynamic(() => import("@/components/three/Globe"), { ssr: false });
 // Centred on Dhaka.
@@ -150,10 +148,10 @@ export function Hero() {
           <span
             className="flex items-center px-4 py-2 text-[clamp(2.5rem,6vw,3.25rem)] leading-none tracking-[0.02em] sm:px-5"
             style={{ fontFamily: "var(--font-stat)" }}
-            aria-label="5+"
+            aria-label={`${hero.years}+`}
           >
             <ShinyText color="#62f9d5" shineColor="#ffffff" speed={1.6} delay={3.2} offset={-1.8}>
-              <span data-years-n>5</span>
+              <span data-years-n>{hero.years}</span>
             </ShinyText>
             <span data-years-plus className="inline-block">
               <ShinyText color="#62f9d5" shineColor="#ffffff" speed={1.6} delay={3.2} offset={-1.5}>
@@ -162,16 +160,18 @@ export function Hero() {
             </span>
           </span>
           <span className="flex flex-col justify-center gap-1 border-l border-rule-strong px-4 py-3 sm:px-5">
-            <span className="stmt-wide text-sm text-ink sm:text-base">Years of experience</span>
-            <span className="fig text-[11px] text-ink-3">Shipping software since Dec 2021</span>
+            <span className="stmt-wide text-sm text-ink sm:text-base">{hero.yearsLabel}</span>
+            <span className="fig text-[11px] text-ink-3">{hero.yearsNote}</span>
           </span>
         </p>
 
         <p className="mt-7 max-w-[40ch] text-lg leading-snug text-ink-2 sm:text-xl" data-meta data-enter>
-          <span className="text-ink">Software engineer</span> building{" "}
-          <RotatingText words={STACK} className="-my-1 bg-accent px-2 py-0.5 font-medium text-paper" /> systems for
-          telecom settlement, government and enterprise.
-          <span className="sr-only"> Stack: React, Next.js, TypeScript, Node.js, Express and MongoDB.</span>
+          <span className="text-ink">{profile.role}</span> building{" "}
+          <RotatingText words={hero.stack} className="-my-1 bg-accent px-2 py-0.5 font-medium text-paper" /> {hero.pitch}
+          <span className="sr-only">
+            {" "}
+            Stack: {hero.stack.slice(0, -1).join(", ")} and {hero.stack.at(-1)}.
+          </span>
         </p>
 
         <div className="mt-9 flex flex-wrap items-center gap-3" data-meta data-enter>
