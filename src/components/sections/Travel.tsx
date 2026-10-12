@@ -5,6 +5,7 @@ import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { travel } from "@/content/profile";
 import { SectionHead } from "@/components/ledger/SectionHead";
 import { TravelMap } from "@/components/travel/TravelMap";
+import { ArrowUpRight } from "@/components/icons";
 import type { WorldMap } from "@/lib/worldMap";
 
 export function Travel({ map }: { map: WorldMap }) {
@@ -59,6 +60,18 @@ export function Travel({ map }: { map: WorldMap }) {
               {visited} of Bangladesh&apos;s {total} districts
             </span>
             . Beyond the border: India, Singapore and Malaysia.
+          </p>
+          <p className="fig mt-4 text-[11px]" data-line>
+            <a
+              href={travel.site}
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="Open"
+              className="inline-flex items-center gap-1 text-accent hover:underline pointer-coarse:min-h-10"
+            >
+              Miles &amp; Moments, my travel journal <ArrowUpRight size={12} />
+              <span className="sr-only">(opens in new tab)</span>
+            </a>
           </p>
 
           <figure className="mt-10" data-districts>

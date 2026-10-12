@@ -217,9 +217,10 @@ export const workPlaces = [
 ];
 
 export const travel = {
-  districts: { visited: 48, total: 64 },
+  districts: { visited: 46, total: 64 },
+  site: "https://miles-and-moments.vercel.app/",
   countries: [
-    { country: "Bangladesh", places: ["48 of 64 districts"] },
+    { country: "Bangladesh", places: ["46 of 64 districts"] },
     { country: "India", places: ["Kolkata", "Agra", "Delhi", "Manali"] },
     { country: "Singapore", places: ["Singapore"] },
     {

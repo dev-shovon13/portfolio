@@ -14,7 +14,7 @@ A general professional audience: recruiters, hiring managers, engineers he has w
   - The National Intelligence Platform (NIP), a government telecom monitoring system.
 - He works with distributed teams in India, Ukraine, Poland and the USA, reviews code and mentors junior developers across all Penta projects.
 - He also builds backends on personal projects: Node.js and Express REST APIs over MongoDB. Endpoints are shown from the public server repos.
-- Off the clock he travels: 48 of Bangladesh's 64 districts, plus India (Kolkata, Agra, Delhi, Manali), Singapore and Malaysia (Johor Bahru, Malacca, Kuala Lumpur, Genting Highlands, Penang, Langkawi).
+- Off the clock he travels: 46 of Bangladesh's 64 districts, plus India (Kolkata, Agra, Delhi, Manali), Singapore and Malaysia (Johor Bahru, Malacca, Kuala Lumpur, Genting Highlands, Penang, Langkawi).
 - The visitor can reach the resume, email, LinkedIn and GitHub within seconds, and can build a tailored CV at /cv.
 
 ## Constraints
