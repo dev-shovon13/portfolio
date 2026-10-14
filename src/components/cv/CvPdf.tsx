@@ -9,7 +9,8 @@ const s = StyleSheet.create({
   name: { fontFamily: "Helvetica-Bold", fontSize: 18, lineHeight: 1.2, textAlign: "center", color: "#1b2a4a" },
   headline: { fontSize: 10.5, lineHeight: 1.3, textAlign: "center", marginTop: 4 },
   contacts: { fontSize: 8.5, textAlign: "center", marginTop: 3, color: "#333333" },
-  link: { color: "#1a56b8", textDecoration: "none" },
+  links: { marginTop: 1 },
+  link: { color: "#1a56b8", textDecoration: "underline" },
   section: { marginTop: 10 },
   title: {
     fontFamily: "Helvetica-Bold",
@@ -32,22 +33,19 @@ const s = StyleSheet.create({
 
 export function CvPdf({ cv }: { cv: CvModel }) {
   return (
-    <Document title={`${cv.name} — CV`} author={cv.name} subject={cv.headline} creator={cv.name}>
+    <Document title={`${cv.name} — Resume`} author={cv.name} subject={cv.headline} creator={cv.name}>
       <Page size="A4" style={s.page}>
         <Text style={s.name}>{cv.name.toUpperCase()}</Text>
         <Text style={s.headline}>{cv.headline}</Text>
-        {cv.contacts.length ? (
-          <Text style={s.contacts}>
-            {cv.contacts.map((c, i) => (
-              <Text key={c.label}>
+        {cv.details.length ? <Text style={s.contacts}>{cv.details.join("  |  ")}</Text> : null}
+        {cv.links.length ? (
+          <Text style={[s.contacts, s.links]}>
+            {cv.links.map((l, i) => (
+              <Text key={l.label}>
                 {i ? "  |  " : ""}
-                {c.href ? (
-                  <Link src={c.href} style={s.link}>
-                    {c.value}
-                  </Link>
-                ) : (
-                  c.value
-                )}
+                <Link src={l.href} style={s.link}>
+                  {l.label}
+                </Link>
               </Text>
             ))}
           </Text>

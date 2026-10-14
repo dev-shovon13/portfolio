@@ -70,6 +70,9 @@ export function Choreography() {
       live("[data-ink]").forEach((el) => {
         const split = SplitText.create(el, { type: "words" });
         splits.push(split);
+        // Fully inked by the time its section lands at the top (where the nav anchors park it),
+        // or once the prose's last line clears 70% of the viewport, whichever comes first.
+        const section = el.closest("section") ?? el;
         gsap.fromTo(
           split.words,
           { opacity: 0.16 },
@@ -77,7 +80,17 @@ export function Choreography() {
             opacity: 1,
             ease: "none",
             stagger: 0.08,
-            scrollTrigger: { trigger: el, start: "top 78%", end: "bottom 52%", scrub: 0.6 },
+            scrollTrigger: {
+              trigger: el,
+              start: "top 78%",
+              end: () => {
+                const y = window.scrollY;
+                const cleared = el.getBoundingClientRect().bottom + y - window.innerHeight * 0.7;
+                const landed = section.getBoundingClientRect().top + y;
+                return Math.min(cleared, landed);
+              },
+              scrub: 0.6,
+            },
           },
         );
       });

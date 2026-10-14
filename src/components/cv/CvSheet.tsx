@@ -6,12 +6,13 @@ export function CvSheet({ cv }: { cv: CvModel }) {
     <article className="w-[794px] bg-[#fbfaf7] px-[59px] pt-[48px] pb-[56px] font-[Helvetica,Arial,sans-serif] text-[12.6px] leading-[1.38] text-[#111]">
       <h1 className="text-center text-[24px] font-bold tracking-[0.02em] text-[#1b2a4a]">{cv.name.toUpperCase()}</h1>
       <p className="mt-0.5 text-center text-[14px]">{cv.headline}</p>
-      {cv.contacts.length ? (
-        <p className="mt-1 text-center text-[11.3px] text-[#333]">
-          {cv.contacts.map((c, i) => (
-            <span key={c.label}>
+      {cv.details.length ? <p className="mt-1 text-center text-[11.3px] text-[#333]">{cv.details.join("  |  ")}</p> : null}
+      {cv.links.length ? (
+        <p className="mt-px text-center text-[11.3px] text-[#333]">
+          {cv.links.map((l, i) => (
+            <span key={l.label}>
               {i ? "  |  " : ""}
-              {c.href ? <span className="text-[#1a56b8]">{c.value}</span> : c.value}
+              <span className="text-[#1a56b8] underline">{l.label}</span>
             </span>
           ))}
         </p>

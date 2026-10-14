@@ -8,16 +8,18 @@ export type Bullet = { id: string; text: string };
 export const cvName = "Kawser Ahmed Shovon";
 export const cvHeadline = "Software Engineer";
 
+// Mirrors the resume header: a plain line (location, email), then a line of labelled links.
 export const cvContacts = [
-  { id: "c-email", label: "Email", value: "ahmedshovoncse13@gmail.com", href: "mailto:ahmedshovoncse13@gmail.com" },
   { id: "c-location", label: "Location", value: "Dhaka, Bangladesh" },
+  { id: "c-email", label: "Email", value: "ahmedshovoncse13@gmail.com" },
+  { id: "c-github", label: "GitHub", value: "github.com/dev-shovon13", href: "https://github.com/dev-shovon13" },
   {
     id: "c-linkedin",
     label: "LinkedIn",
     value: "linkedin.com/in/kawser-ahmed-shovon-601506216",
     href: "https://www.linkedin.com/in/kawser-ahmed-shovon-601506216/",
   },
-  { id: "c-github", label: "GitHub", value: "github.com/dev-shovon13", href: "https://github.com/dev-shovon13" },
+  { id: "c-portfolio", label: "Portfolio", value: "kawser-ahmed-shovon.pages.dev", href: "https://kawser-ahmed-shovon.pages.dev/" },
 ];
 
 export const cvSummary =
@@ -207,7 +209,10 @@ export const cvDefaultOff = ["sec-projects", "p-users", "sec-strengths"];
 export type CvModel = {
   name: string;
   headline: string;
-  contacts: { label: string; value: string; href?: string }[];
+  /** Plain header line: location, email. */
+  details: string[];
+  /** Labelled header links: GitHub | LinkedIn | Portfolio. */
+  links: { label: string; value: string; href: string }[];
   sections: CvSection[];
 };
 
@@ -266,14 +271,17 @@ export function buildCv(off: Set<string>, headline: string, summary: string): Cv
   return {
     name: cvName,
     headline: headline.trim() || cvHeadline,
-    contacts: cvContacts.filter((c) => on(c.id)).map(({ label, value, href }) => ({ label, value, href })),
+    details: cvContacts.filter((c) => on(c.id) && !c.href).map((c) => c.value),
+    links: cvContacts.filter((c) => on(c.id)).flatMap(({ label, value, href }) => (href ? [{ label, value, href }] : [])),
     sections,
   };
 }
 
 export function cvToText(cv: CvModel): string {
   const out: string[] = [cv.name.toUpperCase(), cv.headline];
-  if (cv.contacts.length) out.push(cv.contacts.map((c) => c.value).join(" | "));
+  if (cv.details.length) out.push(cv.details.join(" | "));
+  // Plain text can't carry hyperlinks, so spell out where each label points.
+  if (cv.links.length) out.push(cv.links.map((l) => `${l.label}: ${l.value}`).join(" | "));
   for (const s of cv.sections) {
     out.push("", s.title.toUpperCase());
     if (s.kind === "text") out.push(s.text);

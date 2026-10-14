@@ -18,7 +18,7 @@ import { CvSheet } from "@/components/cv/CvSheet";
 import { Check, Copy, Download } from "@/components/icons";
 
 const STORE = "kas-cv-builder-v1";
-const FILE = "Kawser_Ahmed_Shovon_CV";
+const FILE = "Kawser_Ahmed_Shovon_Resume";
 const A4_HEIGHT = 1123;
 
 const ALL_IDS = [
