@@ -12,12 +12,12 @@ const BASE = 210;
 const x = (offset: number) => 20 + ((offset - MIN) / (MAX - MIN)) * (W - 40);
 
 const COLORS: Record<string, string> = {
-  us: "var(--color-sky)",
-  ca: "var(--color-sky)",
-  pl: "var(--color-mint)",
-  ua: "var(--color-sky)",
-  in: "var(--color-sun)",
-  bd: "var(--color-sun)",
+  us: "var(--color-sky-fill)",
+  ca: "var(--color-sky-fill)",
+  pl: "var(--color-mint-fill)",
+  ua: "var(--color-sky-fill)",
+  in: "var(--color-sun-fill)",
+  bd: "var(--color-sun-fill)",
 };
 
 const home = network.find((n) => n.home)!;
@@ -131,7 +131,7 @@ export function Network() {
         <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
           {network.map((n) => (
             <li key={n.id} className="border-t-2 pt-3" style={{ borderColor: COLORS[n.id] }} data-line>
-              <p className="text-lg font-semibold" style={{ color: n.home ? COLORS[n.id] : undefined }}>
+              <p className="text-lg font-semibold" style={{ color: n.home ? "var(--color-sun-ink)" : undefined }}>
                 {n.label}
               </p>
               <p className="text-sm text-ink-3">{n.detail}</p>

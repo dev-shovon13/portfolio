@@ -80,7 +80,7 @@ export function Travel({ map }: { map: WorldMap }) {
                 <span
                   key={i}
                   data-cell
-                  className={`aspect-square ${i < visited ? "bg-accent" : "border border-rule-strong"}`}
+                  className={`aspect-square ${i < visited ? "bg-accent-fill" : "border border-rule-strong"}`}
                 />
               ))}
             </div>

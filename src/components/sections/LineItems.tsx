@@ -49,7 +49,7 @@ export function LineItems() {
             <div className="relative lg:col-span-8" data-fill-track>
               <div className="rule bg-rule-strong" data-draw />
               <span aria-hidden="true" className="absolute top-0 bottom-0 -left-5 hidden w-px bg-rule lg:block">
-                <span data-fill className="absolute inset-0 origin-top bg-accent" />
+                <span data-fill className="absolute inset-0 origin-top bg-accent-fill" />
               </span>
               <ol>
               {role.entries.map((entry) => (
@@ -65,7 +65,7 @@ export function LineItems() {
                   />
                   <span
                     aria-hidden="true"
-                    className="absolute top-0 -left-3 h-px w-0 bg-accent transition-[width] duration-500 ease-out-expo group-hover/entry:w-[calc(100%+0.75rem)] motion-reduce:transition-none sm:-left-4 sm:group-hover/entry:w-[calc(100%+1rem)]"
+                    className="absolute top-0 -left-3 h-px w-0 bg-accent-fill transition-[width] duration-500 ease-out-expo group-hover/entry:w-[calc(100%+0.75rem)] motion-reduce:transition-none sm:-left-4 sm:group-hover/entry:w-[calc(100%+1rem)]"
                   />
                   <span className="fig pt-1 text-xs text-ink-3 transition-colors duration-300 group-hover/entry:text-accent" data-scramble>
                     {entry.code}

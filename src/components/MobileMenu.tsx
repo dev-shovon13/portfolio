@@ -106,7 +106,7 @@ export function MobileMenu({ items }: { items: NavItem[] }) {
               href={profile.resume}
               download={profile.resumeFile}
               onClick={close}
-              className="stmt-wide inline-flex h-11 items-center gap-2 bg-sun px-4 text-sm text-paper"
+              className="stmt-wide inline-flex h-11 items-center gap-2 bg-sun-fill px-4 text-sm text-on-accent"
             >
               <Download size={14} /> Résumé
             </a>

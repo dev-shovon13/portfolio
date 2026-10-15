@@ -3,6 +3,7 @@ import { profile } from "@/content/profile";
 import { Download } from "@/components/icons";
 import { Logo } from "@/components/Logo";
 import { MobileMenu } from "@/components/MobileMenu";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const nav = [
   { href: "/#about", label: "About" },
@@ -20,7 +21,7 @@ export function SiteHeader() {
       <div
         aria-hidden="true"
         data-page-progress
-        className="absolute inset-x-0 -bottom-px h-px origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-sun),var(--color-mint),var(--color-sky))]"
+        className="absolute inset-x-0 -bottom-px h-px origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-sun-fill),var(--color-mint-fill),var(--color-sky-fill))]"
       />
       <div className="mx-auto flex h-14 max-w-[1320px] items-center gap-3 px-4 sm:gap-6 sm:px-8">
         <Logo />
@@ -40,12 +41,13 @@ export function SiteHeader() {
           <Link href="/cv" className="inline-flex h-10 items-center px-2.5 text-sm text-ink hover:text-accent lg:hidden">
             CV
           </Link>
+          <ThemeToggle />
           <a
             href={profile.resume}
             download={profile.resumeFile}
             data-magnetic
             aria-label="Download résumé (PDF)"
-            className="ml-1 inline-flex h-10 items-center gap-2 border border-accent/70 px-3 text-sm text-accent transition-colors hover:bg-accent hover:text-paper lg:h-auto lg:py-1.5 pointer-coarse:lg:h-10"
+            className="ml-1 inline-flex h-10 items-center gap-2 border border-accent/70 px-3 text-sm text-accent transition-colors hover:bg-accent-fill hover:text-on-accent lg:h-auto lg:py-1.5 pointer-coarse:lg:h-10"
           >
             <Download size={14} />
             <span className="hidden min-[400px]:inline">Résumé</span>

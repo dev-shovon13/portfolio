@@ -12,16 +12,16 @@ export function SectionHead({ id, title, meta }: { id: string; title: string; me
         <h2 id={id} className="stmt text-[clamp(2.6rem,7vw,4.75rem)] font-semibold text-ink" data-split>
           {lead}
           {lead ? " " : null}
-          <span className="text-accent">{last}</span>
+          <span className="accent-word text-accent">{last}</span>
         </h2>
         {meta ? (
           <p className="fig flex items-center gap-2 pb-1.5 text-[11px] text-ink-3" data-line>
-            <span aria-hidden="true" className="blink inline-block h-3 w-1.5 bg-accent" />
+            <span aria-hidden="true" className="blink inline-block h-3 w-1.5 bg-accent-fill" />
             {meta}
           </p>
         ) : null}
       </div>
-      <div className="rule bg-accent" data-draw />
+      <div className="rule bg-accent-fill" data-draw />
       <div className="rule mt-[3px] bg-rule-strong" data-draw />
     </div>
   );

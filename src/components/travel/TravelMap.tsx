@@ -81,7 +81,7 @@ export function TravelMap({ map }: { map: WorldMap }) {
         </title>
         <defs>
           <pattern id="map-dots" width="6" height="6" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.7" fill="#1d3558" />
+            <circle cx="1" cy="1" r="0.7" fill="var(--color-rule)" />
           </pattern>
         </defs>
         <rect width={W} height={H} fill="url(#map-dots)" />
@@ -89,7 +89,7 @@ export function TravelMap({ map }: { map: WorldMap }) {
         <g data-zoom transform={end.transform}>
           <g data-base>
             {map.base.map((c) => (
-              <path key={c.id} d={c.d} fill="#13294a" stroke="#2c4a75" strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
+              <path key={c.id} d={c.d} fill="var(--color-paper-3)" stroke="var(--color-rule-strong)" strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
             ))}
           </g>
           <g>
@@ -135,11 +135,11 @@ export function TravelMap({ map }: { map: WorldMap }) {
             >
               <g data-dot>
                 {c.origin ? <circle r={9} fill="none" stroke={c.color} strokeWidth={1.5} className="animate-ping [transform-box:fill-box] [transform-origin:center]" /> : null}
-                <circle r={c.origin ? 5 : 3.5} fill={c.color} stroke="#050d1a" strokeWidth={1.5} />
+                <circle r={c.origin ? 5 : 3.5} fill={c.color} stroke="var(--color-night)" strokeWidth={1.5} />
               </g>
               {c.label ? (
                 <g data-label>
-                  <rect x={8} y={-9} width={c.name.length * 6.6 + 10} height={17} fill="#050d1a" fillOpacity={0.85} />
+                  <rect x={8} y={-9} width={c.name.length * 6.6 + 10} height={17} fill="var(--color-chip)" fillOpacity={0.85} />
                   <text x={13} y={4} fontSize={11} fill={c.color} className="fig uppercase" style={{ letterSpacing: "0.04em" }}>
                     {c.name}
                   </text>

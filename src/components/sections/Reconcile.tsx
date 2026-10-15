@@ -108,7 +108,7 @@ export function Reconcile() {
           <span className="fig text-[11px] text-ink-3">Dec 2021 → present</span>
         </figcaption>
 
-        <div className="rule bg-accent" data-board-rule />
+        <div className="rule bg-accent-fill" data-board-rule />
 
         <div
           aria-hidden="true"
@@ -126,7 +126,7 @@ export function Reconcile() {
             <li
               key={row.code}
               data-row
-              className="grid grid-cols-[3.25rem_1fr_6.5rem] items-center gap-x-3 border-b border-rule py-3 transition-colors hover:bg-white/[0.03] sm:grid-cols-[3.75rem_1fr_4.5rem_7rem]"
+              className="grid grid-cols-[3.25rem_1fr_6.5rem] items-center gap-x-3 border-b border-rule py-3 transition-colors hover:bg-ink/[0.03] sm:grid-cols-[3.75rem_1fr_4.5rem_7rem]"
             >
               <span className="fig text-xs text-ink-3">{row.code}</span>
               <span className="min-w-0">

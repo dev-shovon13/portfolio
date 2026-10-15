@@ -41,7 +41,7 @@ export function BackToTop() {
       tabIndex={shown ? 0 : -1}
       aria-hidden={!shown}
       data-cursor="Top"
-      className={`group fixed right-4 bottom-4 z-30 grid size-12 place-items-center rounded-full border border-rule-strong bg-night/90 text-ink shadow-[0_12px_28px_-12px_rgba(0,0,0,0.8)] backdrop-blur-sm transition-[opacity,transform,border-color] duration-500 ease-out-expo hover:border-[var(--cursor)] motion-reduce:transition-none sm:right-6 sm:bottom-6 ${
+      className={`group fixed right-4 bottom-4 z-30 grid size-12 place-items-center rounded-full border border-rule-strong bg-night/90 text-ink shadow-[0_12px_28px_-12px_var(--shadow)] backdrop-blur-sm transition-[opacity,transform,border-color] duration-500 ease-out-expo hover:border-[var(--cursor)] motion-reduce:transition-none sm:right-6 sm:bottom-6 ${
         shown ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-4 scale-75 opacity-0"
       }`}
     >

@@ -79,7 +79,7 @@ export function CvSection() {
               href="/cv"
               data-magnetic
               data-cursor="Preview"
-              className="stmt-wide group inline-flex items-center gap-2.5 bg-accent px-5 py-3 text-sm text-paper hover:brightness-110"
+              className="stmt-wide group inline-flex items-center gap-2.5 bg-accent-fill px-5 py-3 text-sm text-on-accent hover:brightness-110"
             >
               Build your copy
               <ArrowRight className="transition-transform duration-300 ease-out-expo group-hover:translate-x-1" />
@@ -104,9 +104,9 @@ export function CvSection() {
             data-paper
             className="group relative mx-auto block max-w-[560px]"
           >
-            <span aria-hidden="true" className="absolute -inset-3 -z-10 translate-x-4 translate-y-4 rotate-3 bg-accent" />
+            <span aria-hidden="true" className="absolute -inset-3 -z-10 translate-x-4 translate-y-4 rotate-3 bg-accent-fill" />
             <div className="transition-transform duration-500 ease-out-expo group-hover:-translate-y-2">
-              <div className="shadow-[0_30px_60px_-24px_rgba(0,0,0,0.75)]">
+              <div className="shadow-[0_30px_60px_-24px_var(--shadow)]">
                 <PaperPreview />
               </div>
             </div>

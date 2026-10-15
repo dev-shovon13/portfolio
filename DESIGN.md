@@ -19,12 +19,19 @@ The site reads as a settlement statement. Every component is a row, a rule, a st
 Exactly three accents: sun, mint, sky. Coral/orange and violet were tried and removed at Kawser's request; don't reintroduce them. Pending/open states use sun.
 
 **Section accents:**
-- Each section sets `data-accent="sun|sky|mint"`. `bg-accent`, `text-accent` and `border-accent` read the nearest one, via `@theme inline` in `globals.css`.
+- Each section sets `data-accent="sun|sky|mint"`. `text-accent` and `border-accent` (text, lines) and `bg-accent-fill` (buttons, chips, rules, marks) read the nearest one, via `@theme inline` in `globals.css`. Text on a fill is `text-on-accent`.
 - The last word of each section title, its first rule, its links and the primary buttons take the accent.
 - Inside ledgers and demos, mint means matched and sun means pending/open.
 - The cursor ring, dot, label and spotlight tween `--cursor` to the accent of the section under the pointer.
 
 Selection, focus rings and scrollbars are themed from these.
+
+**Light theme** (`:root[data-theme="light"]`, toggle in the header, defaults to the system setting, saved under `kas-theme`):
+- Cool white paper (`#f4f7fb`, frames `#ffffff`) with the brand navy `#0a192f` as ink.
+- Yellow can't carry text on white, so it becomes a fill: buttons and chips are yellow with navy text, and sun-accent text turns navy with a yellow marker stroke behind it (`.accent-word`: section-title last words and the hero's last name line).
+- Mint and sky deepen to `#007a64` and `#0a68b8` for text; the `*-fill` tokens keep them bright for fills, dots, arcs and rules. `sun` as text (pending amounts) is `#7a5900`.
+- The contact section is a dark island (`.theme-dark` re-declares the dark tokens).
+- Hardcoded colours are off-limits: use tokens, or `--shadow`, `--veil` and `--shine` for shadows, hover veils and the hero glint.
 
 ## Type
 - **Clash Display** (Fontshare, variable `wght` 200–700, loaded from Fontshare's CDN). `.stmt` is used for the name, section titles, company names and marquee: weight 600, tracking −0.035em, mixed case.

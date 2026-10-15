@@ -156,10 +156,10 @@ export function Loader() {
         </div>
         <div className="relative mt-6 h-[3px] w-full overflow-hidden bg-rule">
           {/* Before the script runs: an indeterminate bar, so a slow first load never looks frozen. */}
-          <div className="loader-idle absolute inset-y-0 w-1/3 bg-[linear-gradient(90deg,transparent,var(--color-sun),transparent)]" />
+          <div className="loader-idle absolute inset-y-0 w-1/3 bg-[linear-gradient(90deg,transparent,var(--color-sun-fill),transparent)]" />
           <div
             data-bar
-            className="h-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-sun),var(--color-mint),var(--color-sky))]"
+            className="h-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--color-sun-fill),var(--color-mint-fill),var(--color-sky-fill))]"
           />
         </div>
       </div>

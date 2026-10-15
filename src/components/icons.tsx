@@ -64,3 +64,16 @@ export const Dot = (p: IconProps) => (
     <circle cx="8" cy="8" r="3" fill="currentColor" />
   </Icon>
 );
+
+export const Sun = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="8" cy="8" r="2.75" />
+    <path d="M8 1v1.75M8 13.25V15M1 8h1.75M13.25 8H15M3.05 3.05l1.24 1.24M11.71 11.71l1.24 1.24M3.05 12.95l1.24-1.24M11.71 4.29l1.24-1.24" />
+  </Icon>
+);
+
+export const Moon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M13.5 9.6A5.75 5.75 0 016.4 2.5a5.75 5.75 0 107.1 7.1z" />
+  </Icon>
+);

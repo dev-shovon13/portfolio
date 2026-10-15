@@ -22,7 +22,7 @@ export function Summary() {
       <h2 id="about-title" className="stmt text-[clamp(2.6rem,7vw,4.75rem)] font-semibold text-ink" data-split>
         Hello, I&apos;m <span className="text-accent">Kawser.</span>
       </h2>
-      <div className="rule mt-5 bg-accent" data-draw />
+      <div className="rule mt-5 bg-accent-fill" data-draw />
 
       <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-12">
         <p

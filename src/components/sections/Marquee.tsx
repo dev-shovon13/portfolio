@@ -8,7 +8,7 @@ const rows = [
   ["Node.js", "Express", "MongoDB", "REST APIs", "GraphQL", "Firebase"],
 ];
 
-const DOTS = ["var(--color-sun)", "var(--color-sky)", "var(--color-mint)"];
+const DOTS = ["var(--color-sun-fill)", "var(--color-sky-fill)", "var(--color-mint-fill)"];
 
 /** Frontend row drifts left to right, backend row right to left; both speed up with the scroll. */
 export function Marquee() {

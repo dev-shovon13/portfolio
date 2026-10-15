@@ -152,19 +152,14 @@ export const cvExperience: CvRole[] = [
 
 export const cvProjects = [
   {
-    id: "p-traveezy",
-    name: "Traveezy",
-    meta: "React · Node.js · Express · MongoDB · Firebase Auth · traveezy.netlify.app",
+    id: "p-hajira",
+    name: "Hajira",
+    meta: "Next.js · Node.js · Express · JWT · TanStack Query · Zod · hajira-hrms.vercel.app",
     bullets: [
-      { id: "b-tr-1", text: "Travel agency platform: browse services, book after sign-in, and manage bookings and services as an admin." },
-      { id: "b-tr-2", text: "Express REST API over MongoDB with CRUD endpoints for services and bookings." },
+      { id: "b-hj-1", text: "HR attendance and leave system with four roles (employee, manager, HR, admin), each with its own dashboard and access enforced by the API." },
+      { id: "b-hj-2", text: "Check-in on office time with shifts, IP restriction and a late policy; leave with day-count preview, half days, carry-forward and approvals; reports exported to Excel and PDF." },
+      { id: "b-hj-3", text: "73-route REST API covering accounts, attendance, leave, company setup, notifications and an audit log; built with agentic coding." },
     ],
-  },
-  {
-    id: "p-users",
-    name: "User Management",
-    meta: "React · Node.js · Express · MongoDB",
-    bullets: [{ id: "b-um-1", text: "Full CRUD on users from a React client against its own Express API." }],
   },
   {
     id: "p-helping",
@@ -200,7 +195,7 @@ export const cvSections = [
 ] as const;
 
 /** Off by default: kept in the builder, left out of the standard one-page CV. */
-export const cvDefaultOff = ["sec-projects", "p-users", "sec-strengths"];
+export const cvDefaultOff = ["sec-projects", "sec-strengths"];
 
 // ---------------------------------------------------------------------------
 // A normalised CV built from the visitor's choices: shared by the HTML

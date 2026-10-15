@@ -16,7 +16,7 @@ function Mark({ className }: { className?: string }) {
       </g>
       <path
         d="M10 49h44M10 54h44"
-        stroke="var(--color-sun)"
+        stroke="var(--color-sun-fill)"
         strokeWidth="3"
         className="origin-left transition-transform duration-500 ease-out-expo [transform-box:fill-box] group-hover:scale-x-[1.12]"
       />
@@ -54,7 +54,7 @@ export function Logo() {
               <span key={i} className="relative inline-block overflow-hidden">
                 <span
                   className={`block transition-transform duration-500 ease-out-expo group-hover:-translate-y-full motion-reduce:transition-none ${
-                    ch === "." ? "text-sun" : "text-ink"
+                    ch === "." ? "text-sun-fill" : "text-ink"
                   }`}
                   style={{ transitionDelay: `${i * 28}ms` }}
                 >

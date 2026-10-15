@@ -14,6 +14,15 @@
   --color-mint-deep: #0c6b58;
   --color-sun: #ffd23f;
   --color-sky: #6ec8ff;
+  /* Dark chip behind bright map and globe labels, in both themes. */
+  --color-chip: #050d1a;
+  /* Fills (buttons, chips, rules, dots) and text that sits on them. Same as the accents in dark. */
+  --color-sun-fill: #ffd23f;
+  --color-mint-fill: #62f9d5;
+  --color-sky-fill: #6ec8ff;
+  --color-on-accent: #0a192f;
+  /* Yellow as text: bright in dark, navy in light where yellow can't carry type. */
+  --color-sun-ink: #ffd23f;
 
   --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
@@ -26,22 +35,94 @@
 /* Inline so utilities read the nearest section's --accent, not :root's. */
 @theme inline {
   --color-accent: var(--accent);
+  --color-accent-fill: var(--accent-fill);
+}
+
+/*
+ * Light theme: cool white paper and the brand navy as ink. Yellow can't carry text on white,
+ * so in light it becomes a fill (buttons, chips, rules, highlighter) and yellow-accent text turns
+ * navy with a marker stroke behind it. Mint and sky deepen to a teal and a blue that read at 4.5:1+.
+ * Set on <html> before first paint from the saved choice, else the system preference.
+ */
+:root[data-theme="light"] {
+  --color-paper: #f4f7fb;
+  --color-paper-2: #ffffff;
+  --color-paper-3: #e8eef6;
+  --color-night: #e8edf4;
+  --color-rule: #d8e0eb;
+  --color-rule-strong: #b3c0d2;
+  --color-ink: #0a192f;
+  --color-ink-2: #384862;
+  --color-ink-3: #55637c;
+  --color-mint: #007a64;
+  --color-mint-deep: #b4efe0;
+  --color-sun: #7a5900;
+  --color-sky: #0a68b8;
+  --color-chip: #0a192f;
+  --color-sun-fill: #f7c51e;
+  --color-mint-fill: #3fe3bd;
+  --color-sky-fill: #5bb8f2;
+  --color-sun-ink: #0a192f;
+  --shadow: rgba(10, 25, 47, 0.16);
+  --veil: rgba(10, 25, 47, 0.05);
+  --name-ink: #0a192f;
+  --shine: #3fa9f5;
+}
+
+/* A dark island inside the light theme (the closing contact band): the dark values again. */
+:root[data-theme="light"] .theme-dark {
+  --color-paper: #0a192f;
+  --color-paper-2: #0d1f3a;
+  --color-paper-3: #112848;
+  --color-night: #050d1a;
+  --color-rule: #1d3558;
+  --color-rule-strong: #2c4a75;
+  --color-ink: #e2e9f5;
+  --color-ink-2: #a9b6cf;
+  --color-ink-3: #8090ad;
+  --color-mint: #62f9d5;
+  --color-mint-deep: #0c6b58;
+  --color-sun: #ffd23f;
+  --color-sky: #6ec8ff;
+  --color-chip: #050d1a;
+  --color-sun-fill: #ffd23f;
+  --color-mint-fill: #62f9d5;
+  --color-sky-fill: #6ec8ff;
+  --color-sun-ink: #ffd23f;
+  --shadow: rgba(0, 0, 0, 0.75);
+  --veil: rgba(255, 255, 255, 0.06);
+  color-scheme: dark;
+}
+
+:root {
+  --shadow: rgba(0, 0, 0, 0.75);
+  /* Faint fill for hovered rows and the cursor ring over links. */
+  --veil: rgba(255, 255, 255, 0.06);
+  /* The hero name and the glint that sweeps across it. */
+  --name-ink: #b9c4d9;
+  --shine: #ffffff;
 }
 
 /* Each section declares its accent; components read var(--accent). */
 :root,
 [data-accent="sun"] {
-  --accent: #ffd23f;
+  --accent: var(--color-sun-ink);
+  --accent-fill: var(--color-sun-fill);
+  --accent-hi: #ffd23f;
 }
 [data-accent="mint"] {
-  --accent: #62f9d5;
+  --accent: var(--color-mint);
+  --accent-fill: var(--color-mint-fill);
+  --accent-hi: #62f9d5;
 }
 [data-accent="sky"] {
-  --accent: #6ec8ff;
+  --accent: var(--color-sky);
+  --accent-fill: var(--color-sky-fill);
+  --accent-hi: #6ec8ff;
 }
 :root {
   /* The cursor's colour, tweened to the accent of the section under the pointer. */
-  --cursor: #ffd23f;
+  --cursor: var(--color-sun-ink);
 }
 
 @layer base {
@@ -64,6 +145,10 @@
   mark {
     background: none;
     color: inherit;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
   }
 
   ::selection {
@@ -147,10 +232,41 @@
 .mark {
   padding: 0 0.1em;
   margin: 0 -0.05em;
-  background: linear-gradient(transparent 56%, color-mix(in srgb, var(--accent) 34%, transparent) 56%, color-mix(in srgb, var(--accent) 34%, transparent) 92%, transparent 92%)
+  background: linear-gradient(transparent 56%, color-mix(in srgb, var(--accent-hi) var(--mark-a, 34%), transparent) 56%, color-mix(in srgb, var(--accent-hi) var(--mark-a, 34%), transparent) 92%, transparent 92%)
     no-repeat 0 0 / 100% 100%;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+}
+
+/* Theme switch: the new page opens as a circle (animated from ThemeToggle), with no default crossfade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Bright strokes on paper need more body to read as a highlighter. */
+[data-theme="light"] .mark {
+  --mark-a: 55%;
+}
+
+/* Light only: accent words (section titles, the hero name) get a marker stroke in the bright brand colour. */
+[data-theme="light"] .accent-word {
+  background: linear-gradient(transparent 62%, color-mix(in srgb, var(--accent-hi) 75%, transparent) 62%, color-mix(in srgb, var(--accent-hi) 75%, transparent) 90%, transparent 90%)
+    no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+[data-theme="light"] .theme-dark .accent-word {
+  background: none;
+}
+[data-theme="light"] .theme-dark .mark {
+  --mark-a: 34%;
+}
+
+/* On paper the pointer glow reads as grey haze; keep only a breath of it. */
+[data-theme="light"] .spotlight-glow {
+  opacity: 0.45;
 }
 
 /* Blink: a hard on/off, like a cursor. */

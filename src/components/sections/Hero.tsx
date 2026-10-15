@@ -43,6 +43,13 @@ function DhakaTime() {
   );
 }
 
+/** Brand hexes as text: the theme tokens, which deepen in light so country names stay readable. */
+const TEXT_TONE: Record<string, string> = {
+  "#ffd23f": "var(--color-sun)",
+  "#62f9d5": "var(--color-mint)",
+  "#6ec8ff": "var(--color-sky)",
+};
+
 export function Hero() {
   const root = useRef<HTMLElement>(null);
   const [shine, setShine] = useState(false);
@@ -119,25 +126,27 @@ export function Hero() {
       <div className="relative z-10 flex flex-col lg:col-span-7" data-parallax="90" data-parallax-start="top" data-parallax-desktop>
         <h1 id="hero-name" className="stmt text-[clamp(3.8rem,11vw,7.25rem)] font-semibold text-ink" data-enter>
           <span data-name-line className="block">
-            <ShinyText active={shine} color="#b9c4d9" shineColor="#ffffff" offset={0}>
+            <ShinyText active={shine} color="var(--name-ink)" shineColor="var(--shine)" offset={0}>
               {first}
             </ShinyText>
           </span>
           <span data-name-line className="block">
-            <ShinyText active={shine} color="#b9c4d9" shineColor="#ffffff" offset={0.18}>
+            <ShinyText active={shine} color="var(--name-ink)" shineColor="var(--shine)" offset={0.18}>
               {rest[0]}
             </ShinyText>
           </span>
           <span data-name-line className="block text-accent">
-            <ShinyText active={shine} color="#ffd23f" shineColor="#ffffff" offset={0.36}>
-              {rest[1]}.
-            </ShinyText>
+            <span className="accent-word">
+              <ShinyText active={shine} color="var(--color-sun-ink)" shineColor="var(--shine)" offset={0.36}>
+                {rest[1]}.
+              </ShinyText>
+            </span>
           </span>
         </h1>
 
         {/* Experience at a glance. */}
         <p
-          className="mt-9 inline-flex items-stretch self-start border border-rule-strong bg-paper-2/70 shadow-[0_16px_32px_-20px_rgba(0,0,0,0.8)]"
+          className="mt-9 inline-flex items-stretch self-start border border-rule-strong bg-paper-2/70 shadow-[0_16px_32px_-20px_var(--shadow)]"
           data-years
           data-meta
           data-enter
@@ -150,11 +159,11 @@ export function Hero() {
             style={{ fontFamily: "var(--font-stat)" }}
             aria-label={`${hero.years}+`}
           >
-            <ShinyText color="#62f9d5" shineColor="#ffffff" speed={1.6} delay={3.2} offset={-1.8}>
+            <ShinyText color="var(--color-mint)" shineColor="var(--shine)" speed={1.6} delay={3.2} offset={-1.8}>
               <span data-years-n>{hero.years}</span>
             </ShinyText>
             <span data-years-plus className="inline-block">
-              <ShinyText color="#62f9d5" shineColor="#ffffff" speed={1.6} delay={3.2} offset={-1.5}>
+              <ShinyText color="var(--color-mint)" shineColor="var(--shine)" speed={1.6} delay={3.2} offset={-1.5}>
                 +
               </ShinyText>
             </span>
@@ -167,7 +176,7 @@ export function Hero() {
 
         <p className="mt-7 max-w-[40ch] text-lg leading-snug text-ink-2 sm:text-xl" data-meta data-enter>
           <span className="text-ink">{profile.role}</span> building{" "}
-          <RotatingText words={hero.stack} className="-my-1 bg-accent px-2 py-0.5 font-medium text-paper" /> {hero.pitch}
+          <RotatingText words={hero.stack} className="-my-1 bg-accent-fill px-2 py-0.5 font-medium text-on-accent" /> {hero.pitch}
           <span className="sr-only">
             {" "}
             Stack: {hero.stack.slice(0, -1).join(", ")} and {hero.stack.at(-1)}.
@@ -180,7 +189,7 @@ export function Hero() {
             download={profile.resumeFile}
             data-magnetic
             data-cursor="PDF"
-            className="stmt-wide group inline-flex items-center gap-2.5 bg-accent px-5 py-3 text-sm text-paper transition-[filter,transform] duration-200 hover:brightness-110 active:translate-y-px"
+            className="stmt-wide group inline-flex items-center gap-2.5 bg-accent-fill px-5 py-3 text-sm text-on-accent transition-[filter,transform] duration-200 hover:brightness-110 active:translate-y-px"
           >
             <Download className="transition-transform duration-300 ease-out-expo group-hover:translate-y-0.5" />
             Résumé
@@ -242,7 +251,7 @@ export function Hero() {
             {workPlaces
               .filter((p) => !p.origin)
               .map((p) => (
-                <span key={p.name} style={{ color: p.color }}>
+                <span key={p.name} style={{ color: TEXT_TONE[p.color] ?? p.color }}>
                   {p.name}
                 </span>
               ))}

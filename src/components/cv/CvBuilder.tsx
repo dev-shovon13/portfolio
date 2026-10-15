@@ -248,7 +248,7 @@ export default function CvBuilder() {
               onClick={downloadPdf}
               disabled={making}
               data-cursor="PDF"
-              className="fig inline-flex h-9 items-center gap-2 bg-accent pointer-coarse:h-10 px-3.5 text-[11px] font-semibold tracking-wide text-paper uppercase hover:brightness-110 disabled:opacity-60"
+              className="fig inline-flex h-9 items-center gap-2 bg-accent-fill pointer-coarse:h-10 px-3.5 text-[11px] font-semibold tracking-wide text-on-accent uppercase hover:brightness-110 disabled:opacity-60"
             >
               <Download size={13} /> {making ? "Building…" : "PDF"}
             </button>
@@ -301,7 +301,7 @@ function Square({ checked, small }: { checked: boolean; small?: boolean }) {
       aria-hidden="true"
       className={`grid shrink-0 place-items-center border-2 border-accent transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent ${
         small ? "size-3.5" : "size-4"
-      } ${checked ? "bg-accent" : "bg-transparent"}`}
+      } ${checked ? "bg-accent-fill" : "bg-transparent"}`}
     >
       <span className={`${small ? "size-1" : "size-1.5"} ${checked ? "bg-paper" : "bg-transparent"}`} />
     </span>
@@ -379,7 +379,7 @@ function Preview({ children }: { children: ReactNode }) {
       className="mt-2 max-h-[calc(100dvh-9.5rem)] overflow-y-auto overscroll-contain border border-rule bg-paper-2 p-3 sm:p-4"
     >
       <div ref={box} className="relative" style={{ height: height * scale }}>
-        <div ref={sheet} className="absolute top-0 left-0 origin-top-left shadow-[0_24px_48px_-24px_rgba(0,0,0,0.7)]" style={{ transform: `scale(${scale})` }}>
+        <div ref={sheet} className="absolute top-0 left-0 origin-top-left shadow-[0_24px_48px_-24px_var(--shadow)]" style={{ transform: `scale(${scale})` }}>
           {children}
         </div>
         {Array.from({ length: pages - 1 }, (_, i) => (

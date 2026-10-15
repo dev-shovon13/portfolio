@@ -154,51 +154,147 @@ export const network = [
   { id: "bd", label: "Dhaka", detail: "Home desk", tz: "Asia/Dhaka", offset: [6, 6] as [number, number], home: true },
 ];
 
-export type Endpoint = { method: "GET" | "POST" | "PUT" | "DELETE"; path: string };
+export type Endpoint = { method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"; path: string };
 
-const crud = (resource: string): Endpoint[] => [
-  { method: "GET", path: `/${resource}` },
-  { method: "GET", path: `/${resource}/:id` },
-  { method: "POST", path: `/${resource}` },
-  { method: "PUT", path: `/${resource}/:id` },
-  { method: "DELETE", path: `/${resource}/:id` },
-];
+/** Shorthand for a run of routes on one resource: [method, path] pairs. */
+const routes = (...list: [Endpoint["method"], string][]): Endpoint[] =>
+  list.map(([method, path]) => ({ method, path }));
 
 /** Personal full-stack projects and the REST routes each server exposes (shown in kebab-case). */
 export const fullstack: {
   name: string;
   what: string;
   stack: string[];
+  /** When set, the card shows two labelled lines: `stack` as front end, this as back end. */
+  backend?: string[];
   live?: string;
-  client: string;
+  client?: string;
   server?: string;
+  /** Short tag beside the name, e.g. how the project was built. */
+  tag?: string;
+  highlights?: string[];
+  /** Who can open which part of the app; each area lists the roles allowed in. */
+  access?: { roles: string[]; note?: string; areas: { area: string; pages: string; roles: string[] }[] };
+  /** Caption over the routes panel; defaults to "<server repo> · Express". */
+  apiLabel?: string;
   api?: Endpoint[];
 }[] = [
   {
-    name: "Traveezy",
-    what: "Travel agency platform: browse services, book after sign-in, and manage bookings and services as an admin.",
-    stack: ["React", "Node.js", "Express", "MongoDB", "Firebase Auth"],
-    live: "https://traveezy.netlify.app/",
-    client: "https://github.com/dev-shovon13/traveezy-client-react",
-    server: "https://github.com/dev-shovon13/traveezy-server",
-    api: [
-      { method: "GET", path: "/services" },
-      { method: "GET", path: "/services/:id" },
-      { method: "POST", path: "/services" },
-      { method: "GET", path: "/user-services" },
-      { method: "GET", path: "/user-services/:id" },
-      { method: "POST", path: "/user-services" },
-      { method: "PUT", path: "/user-services/:id" },
-      { method: "DELETE", path: "/user-services/:id" },
+    name: "Hajira",
+    what: "HR attendance and leave system for a whole company: staff check in and request leave, managers approve, and HR runs departments, shifts, policy and reports.",
+    tag: "Built with agentic coding",
+    highlights: [
+      "Four roles (employee, manager, HR, admin), each with its own dashboard, and the API rejects anything a role can't open.",
+      "Check-in and check-out on office time, with shifts, an optional office-IP restriction, a late policy that turns late marks into deducted days, and correction requests.",
+      "Leave with a day-count preview before submitting, half days, yearly balances with carry-forward, attachments, and approve or reject with a comment.",
+      "Monthly, late and leave reports that export to Excel and PDF.",
+      "HR-approved sign-up, invites, email verification, notifications and an audit log.",
+      "Secure sessions: JWT access and refresh tokens in HttpOnly cookies, renewed silently, plus Helmet security headers and rate limiting.",
+      "Command palette (Ctrl K), charts, Zod-validated forms, TanStack Query caching, light and dark themes.",
     ],
-  },
-  {
-    name: "User Management",
-    what: "Create, read, update and delete users from a React client against its own Express API.",
-    stack: ["React", "Node.js", "Express", "MongoDB"],
-    client: "https://github.com/dev-shovon13/user-management-client-react",
-    server: "https://github.com/dev-shovon13/user-management-server",
-    api: crud("users"),
+    stack: ["Next.js", "TanStack Query", "Zod", "Radix UI", "Recharts", "Framer Motion"],
+    backend: ["Node.js", "Express", "REST API", "JWT (HttpOnly cookies)", "Helmet", "Rate limiting", "Vercel"],
+    live: "https://hajira-hrms.vercel.app/login",
+    access: {
+      roles: ["Employee", "Manager", "HR", "Admin"],
+      note: "enforced by the API",
+      areas: [
+        {
+          area: "My work",
+          pages: "Dashboard, attendance, leave, team calendar, holidays",
+          roles: ["Employee", "Manager", "HR", "Admin"],
+        },
+        { area: "Team", pages: "Approvals, team attendance, reports", roles: ["Manager", "HR", "Admin"] },
+        {
+          area: "Company",
+          pages: "Employees, departments, designations, shifts, leave types, settings, audit log",
+          roles: ["HR", "Admin"],
+        },
+      ],
+    },
+    apiLabel: "hajira · /api/v1",
+    api: [
+      ...routes(
+        ["POST", "/auth/register"],
+        ["POST", "/auth/login"],
+        ["POST", "/auth/refresh"],
+        ["POST", "/auth/logout"],
+        ["GET", "/auth/me"],
+        ["POST", "/auth/verify-email"],
+        ["POST", "/auth/resend-verification"],
+        ["POST", "/auth/forgot-password"],
+        ["POST", "/auth/reset-password"],
+        ["POST", "/auth/accept-invite"],
+        ["POST", "/auth/change-password"],
+      ),
+      ...routes(["GET", "/dashboard/employee"], ["GET", "/dashboard/manager"], ["GET", "/dashboard/admin"]),
+      ...routes(
+        ["POST", "/attendance/check-in"],
+        ["POST", "/attendance/check-out"],
+        ["GET", "/attendance"],
+        ["GET", "/attendance/month"],
+        ["PATCH", "/attendance/:id"],
+      ),
+      ...routes(
+        ["GET", "/regularizations"],
+        ["POST", "/regularizations"],
+        ["POST", "/regularizations/:id/cancel"],
+        ["POST", "/regularizations/:id/approve"],
+        ["POST", "/regularizations/:id/reject"],
+      ),
+      ...routes(
+        ["GET", "/leave/balances"],
+        ["GET", "/leave/requests"],
+        ["POST", "/leave/requests"],
+        ["POST", "/leave/requests/preview"],
+        ["POST", "/leave/requests/:id/cancel"],
+        ["POST", "/leave/requests/:id/approve"],
+        ["POST", "/leave/requests/:id/reject"],
+        ["POST", "/leave/attachments"],
+      ),
+      ...routes(["GET", "/leave-types"], ["POST", "/leave-types"], ["PUT", "/leave-types/:id"], ["DELETE", "/leave-types/:id"]),
+      ...routes(["GET", "/holidays"], ["POST", "/holidays"], ["PUT", "/holidays/:id"], ["DELETE", "/holidays/:id"]),
+      ...routes(
+        ["GET", "/departments"],
+        ["GET", "/departments/options"],
+        ["POST", "/departments"],
+        ["PUT", "/departments/:id"],
+        ["DELETE", "/departments/:id"],
+      ),
+      ...routes(
+        ["GET", "/designations"],
+        ["GET", "/designations/options"],
+        ["POST", "/designations"],
+        ["PUT", "/designations/:id"],
+        ["DELETE", "/designations/:id"],
+      ),
+      ...routes(
+        ["GET", "/shifts"],
+        ["POST", "/shifts"],
+        ["PUT", "/shifts/:id"],
+        ["DELETE", "/shifts/:id"],
+        ["POST", "/shifts/:id/assign"],
+      ),
+      ...routes(
+        ["GET", "/users"],
+        ["GET", "/users/options"],
+        ["GET", "/users/me"],
+        ["PATCH", "/users/me"],
+        ["POST", "/users/me/avatar"],
+        ["POST", "/users/invite"],
+        ["POST", "/users/:id/approve"],
+        ["POST", "/users/:id/reject"],
+      ),
+      ...routes(["GET", "/reports/monthly"], ["GET", "/reports/late"], ["GET", "/reports/leave"]),
+      ...routes(["GET", "/settings"], ["PUT", "/settings"]),
+      ...routes(
+        ["GET", "/notifications"],
+        ["GET", "/notifications/unread-count"],
+        ["POST", "/notifications/:id/read"],
+        ["POST", "/notifications/read-all"],
+      ),
+      ...routes(["GET", "/audit-logs"]),
+    ],
   },
   {
     name: "Helping Hand",

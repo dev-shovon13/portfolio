@@ -101,7 +101,7 @@ export function ReconcileDemo() {
               setFilter("all");
             })
           }
-          className="stmt-wide inline-flex items-center gap-2 bg-mint px-3.5 py-2 pointer-coarse:min-h-10 text-xs font-semibold text-paper transition-colors hover:bg-[#8dfbe1]"
+          className="stmt-wide inline-flex items-center gap-2 bg-mint px-3.5 py-2 pointer-coarse:min-h-10 text-xs font-semibold text-paper transition-colors hover:bg-mint/85"
         >
           {run ? "Reset" : "Run reconciliation"}
         </button>

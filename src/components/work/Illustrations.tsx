@@ -4,7 +4,7 @@ import { Check } from "@/components/icons";
 /** Frame for a recreated interface. Always carries the synthetic-data label. */
 export function RecreationFrame({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <figure className="relative overflow-hidden border border-rule bg-paper-2 shadow-[0_24px_48px_-28px_rgba(0,0,0,0.7)]" data-ledger data-rise>
+    <figure className="relative overflow-hidden border border-rule bg-paper-2 shadow-[0_24px_48px_-28px_var(--shadow)]" data-ledger data-rise>
       <span
         aria-hidden="true"
         data-sheen

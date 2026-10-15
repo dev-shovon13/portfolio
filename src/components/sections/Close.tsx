@@ -9,7 +9,7 @@ export function Close() {
   ];
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-0 lg:-scroll-mt-6 border-t border-rule bg-night text-ink" data-accent="sky" data-ledger>
+    <section id="contact" aria-labelledby="contact-title" className="theme-dark scroll-mt-0 lg:-scroll-mt-6 border-t border-rule bg-night text-ink" data-accent="sky" data-ledger>
       <div className="mx-auto max-w-[1320px] px-4 pt-20 pb-10 sm:px-8 lg:pt-28">
         <div className="flex flex-wrap items-end justify-between gap-4 pb-4">
           <h2 id="contact-title" className="stmt text-[clamp(3rem,9vw,6rem)] font-semibold" data-tighten>
@@ -19,8 +19,8 @@ export function Close() {
             Dhaka · GMT+6
           </p>
         </div>
-        <div className="rule bg-accent" data-draw />
-        <div className="rule mt-[3px] bg-accent" data-draw />
+        <div className="rule bg-accent-fill" data-draw />
+        <div className="rule mt-[3px] bg-accent-fill" data-draw />
 
         <div className="grid gap-12 pt-12 grid-cols-1 lg:grid-cols-12 lg:gap-10">
           <p className="text-[clamp(1.35rem,2.6vw,2rem)] leading-tight font-light tracking-[-0.015em] text-ink-2 lg:col-span-6" data-line>
@@ -38,7 +38,7 @@ export function Close() {
                   download={profile.resumeFile}
                   data-magnetic
                   data-cursor="PDF"
-                  className="stmt-wide inline-flex items-center gap-2 bg-accent px-4 py-2.5 text-sm font-semibold text-paper transition-[filter] hover:brightness-110"
+                  className="stmt-wide inline-flex items-center gap-2 bg-accent-fill px-4 py-2.5 text-sm font-semibold text-on-accent transition-[filter] hover:brightness-110"
                 >
                   <Download size={14} /> Résumé (PDF)
                 </a>

@@ -354,7 +354,7 @@ export default function Globe({ places, focus, distance = 3.4, spin = 0.0012, ho
               className="fig absolute top-0 left-0 opacity-0 transition-opacity duration-300"
             >
               <span
-                className={`${p.labelBelow ? "mt-2" : "-mt-2.5"} ml-3 block bg-paper/80 px-1.5 py-0.5 text-[10px] whitespace-nowrap uppercase`}
+                className={`${p.labelBelow ? "mt-2" : "-mt-2.5"} ml-3 block bg-chip/80 px-1.5 py-0.5 text-[10px] whitespace-nowrap uppercase`}
                 style={{ color: p.color }}
               >
                 {p.name}

@@ -61,7 +61,7 @@ export function Cursor() {
 
     const setAccent = (el: Element | null) => {
       const section = el?.closest("[data-accent]");
-      const next = section ? getComputedStyle(section).getPropertyValue("--accent").trim() : "#ffd23f";
+      const next = getComputedStyle(section ?? document.documentElement).getPropertyValue("--accent").trim();
       if (!next || next === accent) return;
       accent = next;
       gsap.to(document.documentElement, { "--cursor": next, duration: 0.8, ease: "power2.out" });
@@ -81,7 +81,7 @@ export function Cursor() {
       setLabel(text);
       gsap.to(r, {
         scale: el ? 1.6 : 1,
-        backgroundColor: el ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0)",
+        backgroundColor: el ? getComputedStyle(document.documentElement).getPropertyValue("--veil").trim() : "rgba(0,0,0,0)",
         opacity: el ? 1 : 0.75,
         duration: 0.35,
         ease: "power3.out",
