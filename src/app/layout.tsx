@@ -51,11 +51,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0a192f" },
-    { media: "(prefers-color-scheme: light)", color: "#f6f4ee" },
-  ],
-  colorScheme: "dark light",
+  themeColor: "#0a192f",
+  colorScheme: "dark",
 };
 
 const personJsonLd = {
@@ -81,11 +78,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           // Gate entrance animations on JS before first paint.
           // Also skip the loader on repeat visits in this browser session (set before paint, so it never flashes).
-          // The theme comes from the saved choice, else the system preference, also before paint.
+          // The theme is dark unless the visitor chose light (saved), also set before paint.
           dangerouslySetInnerHTML={{
             __html:
               "var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('kas-intro-seen'))d.classList.add('loader-skip')}catch(e){}" +
-              `var t;try{t=localStorage.getItem('${THEME_KEY}')}catch(e){}d.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'`,
+              `var t;try{t=localStorage.getItem('${THEME_KEY}')}catch(e){}d.dataset.theme=t==='light'?'light':'dark'`,
           }}
         />
         <script

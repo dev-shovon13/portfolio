@@ -26,7 +26,7 @@ Exactly three accents: sun, mint, sky. Coral/orange and violet were tried and re
 
 Selection, focus rings and scrollbars are themed from these.
 
-**Light theme** (`:root[data-theme="light"]`, toggle in the header, defaults to the system setting, saved under `kas-theme`):
+**Light theme** (`:root[data-theme="light"]`, toggle in the header; dark is the default, light is opt-in and saved under `kas-theme`):
 - Cool white paper (`#f4f7fb`, frames `#ffffff`) with the brand navy `#0a192f` as ink.
 - Yellow can't carry text on white, so it becomes a fill: buttons and chips are yellow with navy text, and sun-accent text turns navy with a yellow marker stroke behind it (`.accent-word`: section-title last words and the hero's last name line).
 - Mint and sky deepen to `#007a64` and `#0a68b8` for text; the `*-fill` tokens keep them bright for fills, dots, arcs and rules. `sun` as text (pending amounts) is `#7a5900`.

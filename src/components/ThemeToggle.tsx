@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { Moon, Sun } from "@/components/icons";
 import { MOTION_OK } from "@/lib/gsap";
-import { applyTheme, currentTheme, savedTheme, type Theme } from "@/lib/theme";
+import { applyTheme, currentTheme, type Theme } from "@/lib/theme";
 
 const subscribe = (onChange: () => void) => {
   window.addEventListener("themechange", onChange);
@@ -15,14 +15,6 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   const btn = useRef<HTMLButtonElement>(null);
   // Null on the server, which can't know the theme; the icon settles on hydration.
   const theme = useSyncExternalStore<Theme | null>(subscribe, currentTheme, () => null);
-
-  // Follow the system until the visitor picks a theme.
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: light)");
-    const onSystem = () => !savedTheme() && applyTheme(mq.matches ? "light" : "dark");
-    mq.addEventListener("change", onSystem);
-    return () => mq.removeEventListener("change", onSystem);
-  }, []);
 
   const toggle = () => {
     const next: Theme = currentTheme() === "light" ? "dark" : "light";

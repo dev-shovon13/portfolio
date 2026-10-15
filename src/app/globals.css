@@ -42,7 +42,7 @@
  * Light theme: cool white paper and the brand navy as ink. Yellow can't carry text on white,
  * so in light it becomes a fill (buttons, chips, rules, highlighter) and yellow-accent text turns
  * navy with a marker stroke behind it. Mint and sky deepen to a teal and a blue that read at 4.5:1+.
- * Set on <html> before first paint from the saved choice, else the system preference.
+ * Opt-in: set on <html> before first paint only when the visitor has chosen light; dark is the default.
  */
 :root[data-theme="light"] {
   --color-paper: #f4f7fb;
